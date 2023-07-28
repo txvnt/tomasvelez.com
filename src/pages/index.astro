@@ -32,7 +32,7 @@ import TwitterLogo from "/twitter.svg";
     </section>
     <section>
       <h3 class="section-title">Currently I am...</h3>
-      <ul role="list" id="first-section-grid">
+      <ul role="list" id="experience-section-grid">
         <Card
           id="dex-card"
           heading="working at"
@@ -40,6 +40,7 @@ import TwitterLogo from "/twitter.svg";
           subtitle="Software Engineer"
           svg={DexLogo}
           href="https://getdex.com"
+          class:list={["experience-first-card"]}
         />
         <Card
           id="spotify-card"
@@ -61,7 +62,7 @@ import TwitterLogo from "/twitter.svg";
     </section>
     <section>
       <h3 class="section-title">Other things I've done</h3>
-      <ul role="list" id="second-section-grid">
+      <ul role="list" id="experience-section-grid">
         <Card
           id="ucn-card"
           heading="worked with"
@@ -69,12 +70,13 @@ import TwitterLogo from "/twitter.svg";
           subtitle="Mobile Developer"
           svg={UcnLogo}
           href="https://play.google.com/store/apps/details?id=com.ucn.tongoyasistencia"
+          class:list={["experience-first-card"]}
         />
       </ul>
     </section>
     <section>
       <h3 class="section-title">Where you can find me</h3>
-      <ul role="list" id="third-section-grid">
+      <ul role="list" id="contact-section-grid">
         <Card
           id="linkedin-card"
           title="LinkedIn"
@@ -171,9 +173,16 @@ import TwitterLogo from "/twitter.svg";
 
 <style>
   main {
-    max-width: 860px;
+    /* center */
     margin-inline: auto;
-    padding-block: 36px;
+    /* padding vertically */
+    padding-block: 24px;
+    padding-inline: 16px;
+
+    @media only screen and (min-width: 768px) {
+      width: 768px;
+      padding-block: 36px;
+    }
   }
   section {
     padding-block: 24px;
@@ -182,6 +191,10 @@ import TwitterLogo from "/twitter.svg";
     font-weight: 400;
     font-size: 2rem;
     color: #1e293b;
+
+    @media only screen and (max-width: 768px) {
+      text-align: center;
+    }
   }
   h1 strong {
     font-weight: 700;
@@ -189,7 +202,12 @@ import TwitterLogo from "/twitter.svg";
   p {
     font-size: 1.25rem;
     font-weight: 400;
+    line-height: 28px;
     color: #8097ad;
+
+    @media only screen and (max-width: 768px) {
+      text-align: center;
+    }
   }
   p strong {
     font-weight: 500;
@@ -215,6 +233,10 @@ import TwitterLogo from "/twitter.svg";
   #avatar-container {
     height: 180px;
     width: 180px;
+
+    @media only screen and (max-width: 768px) {
+      margin-inline: auto;
+    }
   }
   #avatar-name {
     position: absolute;
@@ -248,22 +270,28 @@ import TwitterLogo from "/twitter.svg";
     font-style: normal;
     font-weight: 500;
   }
-  #first-section-grid {
+  #experience-section-grid {
     display: grid;
     grid-template-columns: 1fr 203px 203px;
     gap: 16px;
     padding: 0;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
-  #second-section-grid {
-    display: grid;
-    grid-template-columns: 1fr 203px 203px;
-    gap: 16px;
-    padding: 0;
-  }
-  #third-section-grid {
+  #contact-section-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, 203px);
     gap: 16px;
     padding: 0;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .experience-first-card {
+    grid-column: span 2;
   }
 </style>

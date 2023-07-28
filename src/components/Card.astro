@@ -7,6 +7,7 @@ export interface Props {
   subtitle: string;
   href?: string;
   theme?: "light" | "dark";
+  "class:list"?: string[];
 }
 
 const {
@@ -17,10 +18,11 @@ const {
   title,
   subtitle,
   theme = "light",
+  "class:list": classList,
 } = Astro.props;
 ---
 
-<li id={id} class="card-li">
+<li id={id} class:list={["card-li", ...(classList || [])]}>
   <div class:list={["card", { [`card-${theme}`]: theme }]}>
     <img src={svg} />
     <div>
@@ -52,6 +54,7 @@ const {
     flex-direction: column;
     justify-content: space-between;
     padding: 24px;
+    box-sizing: border-box;
     border-radius: 2rem;
     height: 170px;
     transition: all 0.25s;
@@ -69,6 +72,11 @@ const {
   img {
     width: 56px;
     height: 56px;
+
+    @media screen and (max-width: 768px) {
+      width: 40px;
+      height: 40px;
+    }
   }
   p {
     margin: 0;
