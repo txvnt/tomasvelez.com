@@ -173,16 +173,11 @@ import TwitterLogo from "/twitter.svg";
 
 <style>
   main {
-    /* center */
+    width: 864px;
     margin-inline: auto;
-    /* padding vertically */
-    padding-block: 24px;
+    padding-block: 36px;
     padding-inline: 16px;
-
-    @media (min-width: 864px) {
-      width: 864px;
-      padding-block: 36px;
-    }
+    box-sizing: border-box;
   }
   section {
     padding-block: 24px;
@@ -191,10 +186,6 @@ import TwitterLogo from "/twitter.svg";
     font-weight: 400;
     font-size: 2rem;
     color: #1e293b;
-
-    @media (max-width: 864px) {
-      text-align: center;
-    }
   }
   h1 strong {
     font-weight: 700;
@@ -204,10 +195,6 @@ import TwitterLogo from "/twitter.svg";
     font-weight: 400;
     line-height: 28px;
     color: #8097ad;
-
-    @media (max-width: 480px) {
-      text-align: center;
-    }
   }
   p strong {
     font-weight: 500;
@@ -233,10 +220,6 @@ import TwitterLogo from "/twitter.svg";
   #avatar-container {
     height: 180px;
     width: 180px;
-
-    @media (max-width: 864px) {
-      margin-inline: auto;
-    }
   }
   #avatar-name {
     position: absolute;
@@ -275,23 +258,34 @@ import TwitterLogo from "/twitter.svg";
     grid-template-columns: 1fr 203px 203px;
     gap: 16px;
     padding: 0;
-
-    @media (max-width: 864px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
   }
   #contact-section-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 203px);
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     padding: 0;
-
-    @media (max-width: 864px) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
   }
 
-  @media (max-width: 864px) {
+  @media screen and (max-width: 864px) {
+    main {
+      width: 100%;
+      padding-block: 24px;
+    }
+    h1 {
+      text-align: center;
+    }
+    p {
+      text-align: center;
+    }
+    #avatar-container {
+      margin-inline: auto;
+    }
+    #experience-section-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    #contact-section-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     .experience-first-card {
       grid-column: span 2;
     }
