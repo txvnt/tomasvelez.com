@@ -1,63 +1,95 @@
 ---
 export interface Props {
-	title: string;
-	body: string;
-	href: string;
+  id: string;
+  svg: string;
+  heading?: string;
+  title: string;
+  subtitle: string;
+  href?: string;
+  theme?: "light" | "dark";
 }
 
-const { href, title, body } = Astro.props;
+const {
+  id,
+  svg,
+  heading,
+  href,
+  title,
+  subtitle,
+  theme = "light",
+} = Astro.props;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
+<li id={id} class="card-li">
+  <div class:list={["card", { [`card-${theme}`]: theme }]}>
+    <img src={svg} />
+    <div>
+      {!!heading && <p>{heading}</p>}
+      <h2 class:list={[{ [`title-${theme}`]: theme }]}>
+        {title}
+      </h2>
+      <p>
+        {subtitle}
+      </p>
+    </div>
+  </div>
 </li>
-<style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 0.25rem;
-		background-color: white;
-		background-image: none;
-		background-size: 400%;
-		border-radius: 0.6rem;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-	}
 
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: 1rem 1.3rem;
-		border-radius: 0.35rem;
-		color: #111;
-		background-color: white;
-		opacity: 0.8;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-		color: #444;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent));
-	}
+<script define:vars={{ id, href }}>
+  const cardDiv = document.getElementById(id);
+
+  cardDiv?.addEventListener("click", () => {
+    window.open(href, "_blank").focus();
+  });
+</script>
+
+<style>
+  .card-li {
+    list-style-type: none;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    border-radius: 2rem;
+    height: 170px;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: scale(1.03);
+  }
+  .card-light {
+    background-color: #f8fafc;
+  }
+  .card-dark {
+    background-color: #314765;
+  }
+  img {
+    width: 56px;
+    height: 56px;
+  }
+  p {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  h2 {
+    margin-block: 0.5rem;
+    color: #334155;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .title-light {
+    color: #1e293b;
+  }
+  .title-dark {
+    color: white;
+  }
 </style>

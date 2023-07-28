@@ -1,81 +1,269 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Card from "../components/Card.astro";
+import Layout from "../layouts/Layout.astro";
+
+import DexLogo from "/dex.svg";
+import SpotifyLogo from "/spotify.svg";
+import MapLogo from "/map.svg";
+import UcnLogo from "/ucn.svg";
+
+import LinkedInLogo from "/linkedin.svg";
+import GitHubLogo from "/github.svg";
+import EmailLogo from "/email.svg";
+import TwitterLogo from "/twitter.svg";
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
+<Layout title="Tomás Vélez">
+  <main>
+    <section>
+      <div id="avatar-container">
+        <div id="avatar">
+          <div id="avatar-name">
+            <img src="/images/memoji.png" id="avatar-memoji" />
+          </div>
+          <img src="/images/profile.JPG" id="avatar-image" />
+        </div>
+      </div>
+      <h1>I’m <strong>Tomás 👋</strong></h1>
+      <p>
+        <strong>Software Engineer</strong> from Chile 🇨🇱. I like coding, making espresso,
+        cars, and listening to music
+      </p>
+    </section>
+    <section>
+      <h3 class="section-title">Currently I am...</h3>
+      <ul role="list" id="first-section-grid">
+        <Card
+          id="dex-card"
+          heading="working at"
+          title="Dex (YC S19)"
+          subtitle="Software Engineer"
+          svg={DexLogo}
+          href="https://getdex.com"
+        />
+        <Card
+          id="spotify-card"
+          heading="listening to"
+          title="Witness"
+          subtitle="VOLA"
+          svg={SpotifyLogo}
+          href="https://open.spotify.com/album/3FVRmhZVaZfLvqHupMbJ6V"
+        />
+        <Card
+          id="location-card"
+          heading="living in"
+          title="Coquimbo"
+          subtitle="Chile"
+          svg={MapLogo}
+          href="https://goo.gl/maps/unJzzFVrdXoLS93P7"
+        />
+      </ul>
+    </section>
+    <section>
+      <h3 class="section-title">Other things I've done</h3>
+      <ul role="list" id="second-section-grid">
+        <Card
+          id="ucn-card"
+          heading="worked with"
+          title="Universidad Católica del Norte"
+          subtitle="Mobile Developer"
+          svg={UcnLogo}
+          href="https://play.google.com/store/apps/details?id=com.ucn.tongoyasistencia"
+        />
+      </ul>
+    </section>
+    <section>
+      <h3 class="section-title">Where you can find me</h3>
+      <ul role="list" id="third-section-grid">
+        <Card
+          id="linkedin-card"
+          title="LinkedIn"
+          subtitle="in/tomasvzn"
+          svg={LinkedInLogo}
+          href="https://www.linkedin.com/in/tomasvzn/"
+        />
+        <Card
+          id="github-card"
+          title="GitHub"
+          subtitle="@txvnt"
+          svg={GitHubLogo}
+          href="https://www.github.com/txvnt"
+        />
+        <Card
+          id="twitter-card"
+          title="Twitter"
+          subtitle="@tomasvzn"
+          svg={TwitterLogo}
+          href="https://www.twitter.com/tomasvzn"
+        />
+        <Card
+          id="email-card"
+          title="Email"
+          subtitle="tomasvzn@gmail.com"
+          svg={EmailLogo}
+          href="mailto:tomasvzn@gmail.com"
+        />
+      </ul>
+    </section>
+    <footer>
+      <p>
+        Made with <a href="https://astro.build/">astro.build</a>
+      </p>
+      <p>
+        {new Date().getFullYear()}
+      </p>
+    </footer>
+  </main>
 </Layout>
 
+<script>
+  let rotated = false;
+
+  function rotateAvatar() {
+    console.log(rotated);
+    const avatarImage = document.getElementById("avatar-image")!;
+    const nameContainer = document.getElementById("avatar-name")!;
+
+    if (!rotated) {
+      avatarImage.style.transform = rotated
+        ? "rotateY(0deg)"
+        : "rotateY(90deg)";
+      avatarImage.addEventListener(
+        "transitionend",
+        function () {
+          avatarImage.style.opacity = "0%";
+          nameContainer.classList.remove("hidden");
+          setTimeout(function () {
+            nameContainer.style.transform = "rotateY(0deg)";
+            nameContainer.style.opacity = "100%";
+          }, 50);
+        },
+        { once: true }
+      );
+    } else {
+      nameContainer.style.transform = rotated
+        ? "rotateY(90deg)"
+        : "rotateY(0deg)";
+      nameContainer.addEventListener(
+        "transitionend",
+        function () {
+          nameContainer.style.opacity = "0%";
+          avatarImage.classList.remove("hidden");
+          setTimeout(function () {
+            avatarImage.style.transform = "rotateY(0deg)";
+            avatarImage.style.opacity = "100%";
+          }, 50);
+        },
+        { once: true }
+      );
+    }
+
+    rotated = !rotated;
+  }
+
+  const container = document.getElementById("avatar-container")!;
+  container.onmouseenter = rotateAvatar;
+
+  setTimeout(() => {
+    rotateAvatar();
+  }, 1000);
+</script>
+
 <style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+  main {
+    max-width: 860px;
+    margin-inline: auto;
+    padding-block: 36px;
+  }
+  section {
+    padding-block: 24px;
+  }
+  h1 {
+    font-weight: 400;
+    font-size: 2rem;
+    color: #1e293b;
+  }
+  h1 strong {
+    font-weight: 700;
+  }
+  p {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #8097ad;
+  }
+  p strong {
+    font-weight: 500;
+    color: #1e293b;
+  }
+  footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 32px;
+  }
+  footer p {
+    margin: 0.125rem;
+    color: #1e293b;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  footer a {
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  #avatar-container {
+    height: 180px;
+    width: 180px;
+  }
+  #avatar-name {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: rotateY(90deg);
+    transition: transform 0.375s ease;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fafc;
+    border-radius: 50%;
+  }
+  #avatar-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.375s ease-in-out;
+  }
+  #avatar-memoji {
+    width: 114px;
+    height: 114px;
+  }
+  .section-title {
+    color: #334155;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+  }
+  #first-section-grid {
+    display: grid;
+    grid-template-columns: 1fr 203px 203px;
+    gap: 16px;
+    padding: 0;
+  }
+  #second-section-grid {
+    display: grid;
+    grid-template-columns: 1fr 203px 203px;
+    gap: 16px;
+    padding: 0;
+  }
+  #third-section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 203px);
+    gap: 16px;
+    padding: 0;
+  }
 </style>
